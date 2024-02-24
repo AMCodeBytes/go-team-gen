@@ -15,8 +15,9 @@ func main() {
 		fmt.Println("2. Create New")
 		fmt.Println("3. Add")
 		fmt.Println("4. Remove")
-		fmt.Println("5. Generate Teams")
-		fmt.Println("6. Quit")
+		fmt.Println("5. Remove All")
+		fmt.Println("6. Generate Teams")
+		fmt.Println("7. Quit")
 		fmt.Print("Your choice: ")
 		fmt.Scan(&choice)
 
@@ -26,14 +27,19 @@ func main() {
 			fmt.Println(players)
 		case 2:
 			fmt.Println("----- Create New Players  -----")
+			clearPlayers(&players)
 			newPlayers(&players)
 		case 3:
-			fmt.Println("You have chosen option 3.")
+			fmt.Println("----- Add Players  -----")
+			newPlayers(&players)
 		case 4:
 			fmt.Println("You have chosen option 4.")
 		case 5:
-			fmt.Println("You have chosen option 5.")
+			fmt.Println("----- Remove All Players  -----")
+			clearPlayers(&players)
 		case 6:
+			fmt.Println("You have chosen option 5.")
+		case 7:
 			fmt.Println("Goodbye, see you soon.")
 			os.Exit(0)
 			return
@@ -58,4 +64,8 @@ func newPlayers(list *[]string) {
 
 		*list = append(*list, input)
 	}
+}
+
+func clearPlayers(list *[]string) {
+	*list = nil
 }
