@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"math"
+	"math/rand"
 	"os"
 	"strconv"
 )
@@ -40,7 +42,8 @@ func main() {
 			fmt.Println("----- Remove All Players  -----")
 			clearPlayers(&players)
 		case 6:
-			fmt.Println("You have chosen option 5.")
+			fmt.Println("----- Generate Teams  -----")
+			generateTeams(players)
 		case 7:
 			fmt.Println("Goodbye, see you soon.")
 			os.Exit(0)
@@ -90,4 +93,26 @@ func removePlayer(list []string) []string {
 
 func clearPlayers(list *[]string) {
 	*list = nil
+}
+
+func generateTeams(list []string) {
+	var numberOfTeams float64 = 2
+	var perTeam int = int(math.Ceil(float64(len(list)) / numberOfTeams))
+	var team []string
+	listCopy := append([]string(nil), list...)
+
+	for i := 0; i < int(numberOfTeams); i++ {
+		for j := 0; j < perTeam; j++ {
+			if len(listCopy) <= 0 {
+				continue
+			}
+
+			var pos int = rand.Intn(len(listCopy))
+
+			team = append(team, listCopy[pos])
+			listCopy = append(listCopy[:pos], listCopy[pos+1:]...)
+		}
+		fmt.Printf("Team %v: %v\n", i+1, team)
+		team = nil
+	}
 }
