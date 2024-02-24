@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 )
 
 func main() {
@@ -33,7 +34,8 @@ func main() {
 			fmt.Println("----- Add Players  -----")
 			newPlayers(&players)
 		case 4:
-			fmt.Println("You have chosen option 4.")
+			fmt.Println("----- Remove Player  -----")
+			players = removePlayer(players)
 		case 5:
 			fmt.Println("----- Remove All Players  -----")
 			clearPlayers(&players)
@@ -63,6 +65,26 @@ func newPlayers(list *[]string) {
 		}
 
 		*list = append(*list, input)
+	}
+}
+
+func removePlayer(list []string) []string {
+	var input string
+	var pos int
+
+	fmt.Println("enter \"q\" to quit")
+
+	for {
+		fmt.Print("New player: ")
+		fmt.Scan(&input)
+
+		if input == "q" {
+			return list
+		}
+
+		pos, _ = strconv.Atoi(input)
+
+		list = append(list[:pos], list[pos+1:]...)
 	}
 }
 
